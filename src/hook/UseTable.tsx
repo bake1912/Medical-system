@@ -57,7 +57,7 @@ export const UseTable = () => {
 
             render: (patient: IPatient) => (
                 <Space size="large">
-                    <a onClick={() => assignDoctor(patient)}> Assign doctor</a>
+                    <a onClick={() => { assignDoctor(patient) }}> Assign doctor</a>
                     <a onClick={() => dispatch(openModal({ isOpen: true, modalType: ModalType.EDIT, currentPatient: patient }))}> Edit patient</a>
                     <a onClick={() => dispatch(removePatient(patient))}> Delete patient</a>
                 </Space>

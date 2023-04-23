@@ -6,6 +6,7 @@ interface IModal {
     isOpen: boolean,
     modalType?: ModalType | ''
     currentPatient?: IPatient
+    description?:string
 }
 interface IInitialState {
     patients: IPatient[]
@@ -87,7 +88,8 @@ const initialState: IInitialState = {
     ],
     isModalOpen: {
         isOpen: false,
-        modalType: ''
+        modalType: '',
+        description:''
     }
 }
 

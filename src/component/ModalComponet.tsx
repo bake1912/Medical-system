@@ -9,10 +9,10 @@ import { ModalType, Pain } from "../enum/enum"
 import { Option } from "antd/es/mentions"
 import { v4 as uuid } from 'uuid';
 import { RootState } from "../redux/store"
-
+import './ModalComponent.scss'
 export const ModalComponent = () => {
     const id = uuid()
-    const { isOpen, modalType, currentPatient } = useSelector((store: RootState) => store.Medical.isModalOpen)
+    const { isOpen, modalType, currentPatient, description } = useSelector((store: RootState) => store.Medical.isModalOpen)
     const dispatch = useDispatch()
     const validationSchema = Yup.object({
         name: Yup.string().required(),
@@ -69,36 +69,40 @@ export const ModalComponent = () => {
                 footer={null}
                 onCancel={() => dispatch(openModal({ isOpen: false }))}
             >
-                <form onSubmit={formik.handleSubmit}>
-                    <Input
-                        placeholder="name"
-                        onChange={formik.handleChange}
-                        name="name"
-                        value={formik.values.name}
-                    ></Input>
-                    {errors.name && touched.name && <div>{errors.name}</div>}
-                    <Input
-                        placeholder="age"
-                        onChange={formik.handleChange}
-                        name="age"
-                        value={formik.values.age!}
-                    ></Input>
-                    {errors.age && touched.age && <div>{errors.age}</div>}
-                    < Select value={formik.values.pain}
-                        onChange={formik.handleChange("pain")}
-                        placeholder='pain'
-                    >
-                        <Option value={Pain.EYE}>{Pain.EYE}</Option>
-                        <Option value={Pain.HEART}>{Pain.HEART}</Option>
-                        <Option value={Pain.LEG}>{Pain.LEG}</Option>
-                        <Option value={Pain.SKIN}>{Pain.SKIN}</Option>
-                    </Select>
-                    {errors.pain && touched.pain && <div>{errors.pain}</div>}
-                    <div style={{ display: 'flex', justifyContent: 'right' }}>
-                        <Button onClick={() => dispatch(openModal({ isOpen: false }))}>Close</Button>
-                        <Button htmlType="submit">Submit</Button>
-                    </div>
-                </form>
+                {modalType !== ModalType.DESCRIPTION ?
+                    <form onSubmit={formik.handleSubmit}>
+                        <Input
+                            placeholder="name"
+                            onChange={formik.handleChange}
+                            name="name"
+                            value={formik.values.name}
+                        ></Input>
+                        {errors.name && touched.name && <div className="error">{errors.name}</div>}
+                        <Input
+                            placeholder="age"
+                            onChange={formik.handleChange}
+                            name="age"
+                            value={formik.values.age!}
+                        ></Input>
+                        {errors.age && touched.age && <div className="error">{errors.age}</div>}
+                        < Select value={formik.values.pain}
+                            onChange={formik.handleChange("pain")}
+                            placeholder='pain'
+                        >
+                            <Option value={Pain.EYE}>{Pain.EYE}</Option>
+                            <Option value={Pain.HEART}>{Pain.HEART}</Option>
+                            <Option value={Pain.LEG}>{Pain.LEG}</Option>
+                            <Option value={Pain.SKIN}>{Pain.SKIN}</Option>
+                        </Select>
+                        {errors.pain && touched.pain && <div className="error">{errors.pain}</div>}
+                        <div style={{ display: 'flex', justifyContent: 'right' }}>
+                            <Button onClick={() => dispatch(openModal({ isOpen: false }))}>Close</Button>
+                            <Button htmlType="submit">Submit</Button>
+                        </div>
+                    </form>
+                    : <h1 className="description">{description}</h1>
+
+                }
 
             </Modal>
         </div >

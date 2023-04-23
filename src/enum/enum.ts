@@ -16,5 +16,6 @@ export enum ColumnsTopOptions {
 }
 export enum ModalType {
     ADD,
-    EDIT
+    EDIT,
+    DESCRIPTION
 }
