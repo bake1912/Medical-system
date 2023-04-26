@@ -2,11 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IDoctor, IFormikValues, IPatient } from "../../interface/interface";
 import { ModalType, Pain } from "../../enum/enum";
 import { v4 as uuid } from 'uuid';
+import { useEffect } from "react";
 interface IModal {
     isOpen: boolean,
     modalType?: ModalType | ''
     currentPatient?: IPatient
-    description?:string
+    description?: string
 }
 interface IInitialState {
     patients: IPatient[]
@@ -50,46 +51,11 @@ const initialState: IInitialState = {
 
         }
     ],
-    doctors: [
-        {
-            id: uuid(),
-            name: "Dr. John Smith",
-            age: 35,
-            skills: {
-                heart: 7,
-                eye: 3,
-                leg: 5,
-                skin: 3
-
-            },
-        },
-        {
-            id: uuid(),
-            name: "Dr. Sarah Lee",
-            age: 42,
-            skills: {
-                heart: 2,
-                eye: 4,
-                leg: 3,
-                skin: 5
-            },
-        },
-        {
-            id: uuid(),
-            name: "Dr. David Kim",
-            age: 28,
-            skills: {
-                heart: 5,
-                eye: 4,
-                leg: 5,
-                skin: 4
-            },
-        }
-    ],
+    doctors: [],
     isModalOpen: {
         isOpen: false,
         modalType: '',
-        description:''
+        description: ''
     }
 }
 
@@ -100,9 +66,12 @@ const medicalSlice = createSlice({
         openModal(state, payload: { type: string, payload: IModal }) {
             return { ...state, isModalOpen: payload.payload }
         },
-        addPatient(state, payload: { type: string, payload: IPatient }) {
+        addPatient(state, payload) {
             return { ...state, patients: [...state.patients, payload.payload] }
 
+        },
+        setDoctors(state, payload: { type: string, payload: IDoctor[] }) {
+            return { ...state, doctors: payload.payload }
         },
         setPatients(state, payload: { type: string, payload: IPatient[] }) {
             return { ...state, patients: payload.payload }
@@ -130,4 +99,4 @@ const medicalSlice = createSlice({
     }
 })
 export default medicalSlice
-export const { addPatient, setPatients, removePatient, editPatient, openModal } = medicalSlice.actions
+export const { addPatient, setPatients, removePatient, editPatient, openModal, setDoctors } = medicalSlice.actions

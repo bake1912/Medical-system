@@ -1,15 +1,18 @@
 import { Pain } from "../enum/enum";
 
+export interface IDoctorSkills {
+    heart: number,
+    eye: number,
+    leg: number,
+    skin: number,
+    [key:string]:number
+};
+
 export interface IDoctor {
     id: string
     name: string;
     age: number;
-    skills: {
-        heart: number,
-        eye: number,
-        leg: number,
-        skin: number
-    };
+    skills: IDoctorSkills
 };
 
 export interface IFormikValues {

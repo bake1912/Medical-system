@@ -1,5 +1,5 @@
 import { Space } from "antd"
-import { IPatient } from "../interface/interface"
+import { IDoctorSkills, IPatient } from "../interface/interface"
 import { ColumnsTopOptions, ModalType } from "../enum/enum"
 import { UsePatient } from "./UsePatient"
 import { openModal, removePatient } from "../redux/slice/medical-slice"
@@ -24,8 +24,15 @@ export const UseTable = () => {
             title: ColumnsTopOptions.SKILLS,
             dataIndex: ColumnsTopOptions.SKILLS,
             key: ColumnsTopOptions.SKILLS,
-            render: (skills: any) =>
-                Object.keys(skills).map((skill) => `${skill}: ${skills[skill]}`).join(", "),
+            render: (skills: IDoctorSkills) => {
+                let arr: any[] = []
+                const currentDoctorSkills = skills
+                const nameSkills = Object.keys(currentDoctorSkills)
+                for (const name of nameSkills) {
+                    arr = [...arr, (`${name}:${currentDoctorSkills[name]}; `)]
+                }
+                return arr
+            }
         },
 
     ]

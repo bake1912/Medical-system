@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { ModalComponent } from "./ModalComponet";
 import './TableFull.scss'
+import { UseDoctor } from "../hook/UseDoctor";
 export const TableFull = () => {
     const { doctorColumns, patientColumns } = UseTable()
+    const hook = UseDoctor()
     const { doctors, patients } = useSelector((store: RootState) => store.Medical)
     return (
         <div>
