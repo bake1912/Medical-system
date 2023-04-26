@@ -7,7 +7,7 @@ import './TableFull.scss'
 import { UseDoctor } from "../hook/UseDoctor";
 export const TableFull = () => {
     const { doctorColumns, patientColumns } = UseTable()
-    const hook = UseDoctor()
+    const doctor = UseDoctor()
     const { doctors, patients } = useSelector((store: RootState) => store.Medical)
     return (
         <div>
